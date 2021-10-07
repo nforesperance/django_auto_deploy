@@ -13,12 +13,20 @@ jobs:
     - name: Setup python environment # setting python environment to 3.x
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x' 
-    - name: Install dependencies
-      run: |
+        python-version: '3.x'
+    - name: Creating Virtual Environment
+      run: /
         python3 -m pip install --upgrade pip
+        pip3 install virtualenv
+        virtualenv djangoenv
+        source djangoenv/bin/activate 
+    - name: Install dependencies
+      run: /
+        pip3 install gunicorn psycopg2-binary
         pip3 install -r requirements.txt
     - name: Run migrations
       run: python manage.py migrate
-    - name: Run tests
-      run: python3 manage.py test
+    - name: Lunching Apllication
+      run: python3 ./manage.py runserver 0.0.0.0:8000
+    # - name: Run tests
+    #   run: python3 manage.py test
