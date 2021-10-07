@@ -17,9 +17,8 @@ jobs:
     - name: Creating Virtual Environment
       run: /
         python3 -m pip install --upgrade pip
-        pip3 install virtualenv
-        virtualenv djangoenv
-        source djangoenv/bin/activate 
+        python3 -m venv env
+        source env/bin/activate 
     - name: Install dependencies
       run: /
         pip3 install gunicorn psycopg2-binary
