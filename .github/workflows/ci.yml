@@ -3,16 +3,16 @@ name: Python application
 on: [push]
 
 jobs:
-  build:
-
+  docker:
+    timeout-minutes: 10
     runs-on: self-hosted
 
     steps:
     - name: Checkout code # checking our the code at current commit that triggers the workflow
       uses: actions/checkout@v2
-    - name: Setup python environment # setting python environment to 3.x
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x' 
-    - name: Starting Docker
-      run: docker-compose up
+
+    - name: Start containers
+      run: docker-compose -f "docker-compose.yml" up -d --build
+    - name: Stop containers
+      if: always()
+      run: docker-compose -f "docker-compose.yml" down
