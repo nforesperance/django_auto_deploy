@@ -11,7 +11,9 @@ services:
                     gunicorn django_auto_deploy.wsgi:application --bind 0.0.0.0:${APP_PORT}"
     volumes:
       - .:/code
-      - ./static:/static 
+      - static_data:/static
     ports:
       - "8000:8000"
     restart: "always"
+volumes:
+  static_data:
