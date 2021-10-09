@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 #ddkdk fdfdfd
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6&g#cr2+qh+0(lpv7**)ubmv_62o$6)x%s$8qm_g!&8rm++ag('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['51.79.31.146' 'localhost']
-
+ALLOWED_HOSTS =['web','172.19.0.2', 'localhost', '127.0.0.1', '51.79.31.146', '0.0.0.0']
+print(ALLOWED_HOSTS)
 
 # Application definition
 
@@ -118,7 +118,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
