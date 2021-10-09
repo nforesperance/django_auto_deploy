@@ -1,0 +1,30 @@
+version: "3"
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:8000"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      # - /static:/static
+      - ./static:/static # to be able to serve statics files
+    depends_on:
+      - web
+    restart: "always"
+    networks:
+      - local_net
+  web:
+    image: nfor/django_auto_deploy
+    expose:
+      - "8000"
+    networks:
+      - local_net
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $HOME/.docker/config.json:/config.json
+    command: --interval 30
+networks:
+  local_net:
+    driver: bridge

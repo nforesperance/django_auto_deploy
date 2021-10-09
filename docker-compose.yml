@@ -3,29 +3,15 @@ version: '3.7'
 # https://stackoverflow.com/questions/51557216/django-nginx-docker-gunicorn-cant-reach
 # https://ruddra.com/serve-static-files-by-nginx-from-django-using-docker/y
 services:
-  nginx:
-    build: ./nginx
-    ports:
-      - "80:8000"
-    volumes:
-      - ./nginx:/etc/nginx/conf.d
-      # - /static:/static
-      - ./static:/static # to be able to serve statics files
-    depends_on:
-      - web
-    restart: "always"
   web:
-    build: . #build the image for the web service from the dockerfile in parent directory
+    build: .
     command: sh -c "python manage.py makemigrations &&
                     python manage.py migrate &&
                     python manage.py collectstatic --noinput --clear &&
                     gunicorn django_auto_deploy.wsgi:application --bind 0.0.0.0:${APP_PORT}"
     volumes:
       - .:/code
-      # - /static:/static
-      - ./static:/static # to be able to serve statics files
-    env_file:
-      - .env
-    expose:
-      - "8000"
+      - ./static:/static 
+    ports:
+      - "8000:8000"
     restart: "always"
