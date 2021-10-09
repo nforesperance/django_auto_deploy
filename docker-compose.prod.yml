@@ -7,7 +7,7 @@ services:
     volumes:
       - ./nginx:/etc/nginx/conf.d
       # - /static:/static
-      - static_data:/static # to be able to serve statics files
+      - ./satic:/static # to be able to serve statics files
     depends_on:
       - web
     restart: "always"
@@ -16,7 +16,7 @@ services:
   web:
     image: nfor/django_auto_deploy
     volumes:
-      - static_data:/static # to be able to serve statics files
+      - ./static:/static # to be able to serve statics files
     expose:
       - "8000"
     networks:
@@ -30,5 +30,3 @@ services:
 networks:
   local_net:
     driver: bridge
-volumes:
-  static_data:
