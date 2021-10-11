@@ -7,7 +7,7 @@ services:
     volumes:
       - ./nginx:/etc/nginx/conf.d
       # - /static:/static
-      - ./satic:/static # to be able to serve statics files
+      - satic_data:/static # to be able to serve statics files
     depends_on:
       - web
     restart: "always"
@@ -15,12 +15,12 @@ services:
       - local_net
   web:
     image: nfor/django_auto_deploy
-    volumes:
-      - ./static:/static # to be able to serve statics files
     expose:
       - "8000"
     networks:
       - local_net
+    volumes:
+      - satic_data:/static
   watchtower:
     image: containrrr/watchtower
     volumes:
@@ -30,3 +30,5 @@ services:
 networks:
   local_net:
     driver: bridge
+volumes:
+  satic_data:

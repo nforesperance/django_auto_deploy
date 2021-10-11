@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6&g#cr2+qh+0(lpv7**)ubmv_62o$6)x%s$8qm_g!&8rm++ag('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS =['web','172.19.0.2', 'localhost', '127.0.0.1', '51.79.31.146', '0.0.0.0']
 print(ALLOWED_HOSTS)
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'test_app',
+    'django_auto_deploy',
 ]
 
 MIDDLEWARE = [
@@ -120,7 +121,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-
+STATICFILES_DIRS = [
+    BASE_DIR / "staticfiles",
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
